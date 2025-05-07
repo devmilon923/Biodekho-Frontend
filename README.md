@@ -1,6 +1,6 @@
-# Matrimony Nexus
+# Biodekho
 
-Matrimony Nexus is a modern and user-friendly matchmaking platform designed to connect individuals seeking life partners. Built with the MERN stack (MongoDB, Express, React, Node.js), this platform provides a seamless and secure experience for users, emphasizing responsiveness, authentication, and robust functionality.
+Biodekho is a modern and user-friendly matchmaking platform designed to connect individuals seeking life partners. Built with the MERN stack (MongoDB, Express, React, Node.js), this platform provides a seamless and secure experience for users, emphasizing responsiveness, authentication, and robust functionality.
 
 ---
 
@@ -35,7 +35,9 @@ Matrimony Nexus is a modern and user-friendly matchmaking platform designed to c
 ## Installation
 
 ### Prerequisites
+
 Ensure you have the following installed:
+
 - Node.js
 - MongoDB
 
@@ -51,7 +53,7 @@ Ensure you have the following installed:
 
 ## Live Application
 
-[Visit Matrimony Nexus Here](#)
+[Visit Biodekho Here](#)
 
 ---
 
@@ -79,8 +81,9 @@ Ensure you have the following installed:
 ## Contributing
 
 We welcome contributions! To contribute:
+
 1. Fork the repository.
-2. Commit your changes (`git commit -m 'Matrimony Nexus'`).
+2. Commit your changes (`git commit -m 'Biodekho'`).
 3. Push to the branch (`git push origin feature-name`).
 4. Create a Pull Request.
 
