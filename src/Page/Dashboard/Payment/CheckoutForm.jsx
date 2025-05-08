@@ -81,6 +81,7 @@ const CheckoutForm = ({ biodataId, planName, price }) => {
         };
 
         await axiosSecure.post("/payments", paymentData);
+        await axiosSecure.post("/users/contactRequests", paymentData);
 
         Swal.fire({
           icon: "success",
@@ -164,8 +165,9 @@ const CheckoutForm = ({ biodataId, planName, price }) => {
       <button
         type="submit"
         disabled={!stripe || isProcessing}
-        className={`w-full text-white py-2 rounded-lg ${isProcessing ? "bg-gray-500 cursor-not-allowed" : "bg-custom-gradient"
-          } transition hover:bg-BgPrimary`}
+        className={`w-full text-white py-2 rounded-lg ${
+          isProcessing ? "bg-gray-500 cursor-not-allowed" : "bg-custom-gradient"
+        } transition hover:bg-BgPrimary`}
       >
         {isProcessing ? "Processing..." : "Pay Now"}
       </button>
