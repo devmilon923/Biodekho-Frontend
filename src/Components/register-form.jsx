@@ -81,10 +81,7 @@ export function RegisterForm({ className, ...props }) {
 
         axiosPublic.post("/users", userInfo).then((res) => {
           console.log("User POST response:", res.data);
-          if (
-            res.data.insertedId ||
-            res.data.message === "user already exists"
-          ) {
+          if (res.data.insertedId || res.data.message === "user already exists") {
             navigate("/");
           } else {
             toast.error("User not saved to DB");
@@ -94,6 +91,7 @@ export function RegisterForm({ className, ...props }) {
       .catch((error) => toast.error(`Google Login Failed: ${error.message}`));
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -101,8 +99,7 @@ export function RegisterForm({ className, ...props }) {
     const email = form.get("email");
     const password = form.get("password");
 
-    const photoUrl =
-      "https://i.ibb.co/rQr6L83/default-avatar-icon-of-social-media-user-vector.jpg";
+    const photoUrl = "https://i.ibb.co/rQr6L83/default-avatar-icon-of-social-media-user-vector.jpg";
     const createdAt = new Date().toISOString();
 
     if (name.length < 5) {
@@ -125,7 +122,7 @@ export function RegisterForm({ className, ...props }) {
         const user = userCredential.user;
         setUser(user);
 
-        updateUserProfile({ displayName: name, photoURL: photoUrl })
+        updateUserProfile(name, photoUrl)
           .then(() => {
             const userInfo = {
               name,
@@ -157,6 +154,7 @@ export function RegisterForm({ className, ...props }) {
         toast.error(`Error creating user: ${err.message}`);
       });
   };
+
 
   return (
     <form
@@ -203,9 +201,8 @@ export function RegisterForm({ className, ...props }) {
               <HoverCardTrigger>
                 <IoMdInformationCircleOutline
                   size={20}
-                  className={`cursor-pointer  ${
-                    STRENGTH_CONFIG.colors[calculateStrength.score]
-                  } transition-all `}
+                  className={`cursor-pointer  ${STRENGTH_CONFIG.colors[calculateStrength.score]
+                    } transition-all `}
                 />
               </HoverCardTrigger>
               <HoverCardContent className="bg-background">
@@ -221,9 +218,8 @@ export function RegisterForm({ className, ...props }) {
                         />
                       )}
                       <span
-                        className={`text-xs ${
-                          req.met ? "text-emerald-600" : "text-muted-foreground"
-                        }`}
+                        className={`text-xs ${req.met ? "text-emerald-600" : "text-muted-foreground"
+                          }`}
                       >
                         {req.text}
                         <span className="sr-only">

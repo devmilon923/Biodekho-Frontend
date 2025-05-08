@@ -21,6 +21,7 @@ const ProfileSettings = () => {
 
   const [compressedImage, setCompressedImage] = useState(null);
 
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -69,7 +70,7 @@ const ProfileSettings = () => {
           maxSizeMB: 1, // Maximum size in MB
           maxWidthOrHeight: 1024, // Maximum width or height
           useWebWorker: true, // Use web worker for performance
-          fileType: "image/webp", // Convert the image to WebP format
+          fileType: "image/webp" // Convert the image to WebP format
         };
 
         const compressedFile = await imageCompression(imageFile, options);
@@ -100,26 +101,20 @@ const ProfileSettings = () => {
         });
 
         if (res.data.success) {
-          const photoURL = res.data.data.display_url; // Ensure this is a string
-          console.log("Photo URL:", photoURL);
+          dataToUpdate.photoUrl = res.data.data.display_url;
 
-          // Update Firebase profile with photoURL
-          const imageFirebase = await updateUserProfile({
-            photoURL: photoURL, // Use correct property name
+          await updateUserProfile(user, {
+            photoURL: res.data.data.display_url,
           });
-          console.log(imageFirebase);
-          dataToUpdate.photoUrl = photoURL; // Adjust based on your server's expected field name
         } else {
           throw new Error("Image upload failed. Please try again.");
         }
       }
-      console.log(dataToUpdate);
-      // Update server data
-      const response = await axiosPublic.patch(
-        `/users/${user.email}`,
-        dataToUpdate
-      );
 
+      // Update data on the server
+      const response = await axiosPublic.patch(`/users/${user.email}`, dataToUpdate);
+
+      // Update local state with the updated data
       setProfileData((prevData) => ({
         ...prevData,
         ...dataToUpdate,
@@ -129,13 +124,7 @@ const ProfileSettings = () => {
       closeModal();
     } catch (err) {
       console.error("Error updating profile:", err);
-      Swal.fire(
-        "Error",
-        err.response?.data?.message ||
-          err.message ||
-          "Failed to update profile",
-        "error"
-      );
+      Swal.fire("Error", err.response?.data?.message || err.message || "Failed to update profile", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -150,21 +139,21 @@ const ProfileSettings = () => {
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
+
+
       {/* Profile Header with Photo */}
       <div
-        className={`relative rounded-lg p-4 border ${
-          isDarkMode
-            ? "border-gray-600 bg-gray-800"
-            : "border-gray-400 bg-white"
-        }`}
+        className={`relative rounded-lg p-4 border ${isDarkMode
+          ? "border-gray-600 bg-gray-800"
+          : "border-gray-400 bg-white"
+          }`}
       >
         <button
           onClick={() => openModal("photo")}
-          className={`absolute top-4 right-4 flex items-center gap-1 ${
-            isDarkMode
-              ? "text-gray-300 hover:text-blue-400"
-              : "text-gray-500 hover:text-blue-600"
-          }`}
+          className={`absolute top-4 right-4 flex items-center gap-1 ${isDarkMode
+            ? "text-gray-300 hover:text-blue-400"
+            : "text-gray-500 hover:text-blue-600"
+            }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -191,11 +180,10 @@ const ProfileSettings = () => {
                 />
               ) : (
                 <div
-                  className={`h-32 w-32 rounded-full flex items-center justify-center text-4xl font-bold border-4 shadow-md ${
-                    isDarkMode
-                      ? "bg-gray-700 text-gray-300 border-gray-600"
-                      : "bg-gray-300 text-gray-600 border-white"
-                  }`}
+                  className={`h-32 w-32 rounded-full flex items-center justify-center text-4xl font-bold border-4 shadow-md ${isDarkMode
+                    ? "bg-gray-700 text-gray-300 border-gray-600"
+                    : "bg-gray-300 text-gray-600 border-white"
+                    }`}
                 >
                   {userData?.name
                     ?.split(" ")
@@ -231,11 +219,10 @@ const ProfileSettings = () => {
             </div>
             <button
               onClick={() => openModal("photo")}
-              className={`text-sm font-medium ${
-                isDarkMode
-                  ? "text-blue-400 hover:text-blue-300"
-                  : "text-blue-600 hover:text-blue-800"
-              }`}
+              className={`text-sm font-medium ${isDarkMode
+                ? "text-blue-400 hover:text-blue-300"
+                : "text-blue-600 hover:text-blue-800"
+                }`}
             >
               Change photo
             </button>
@@ -246,9 +233,8 @@ const ProfileSettings = () => {
               {userData?.name || "No name"}
             </h1>
             <p
-              className={`capitalize ${
-                isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+              className={`capitalize ${isDarkMode ? "text-gray-400" : "text-gray-600"
+                }`}
             >
               {userData?.role || "No role"}
             </p>
@@ -263,19 +249,17 @@ const ProfileSettings = () => {
 
       {/* Personal Information Section */}
       <div
-        className={`relative space-y-6 border p-4 rounded-lg ${
-          isDarkMode
-            ? "border-gray-600 bg-gray-800"
-            : "border-gray-400 bg-white"
-        }`}
+        className={`relative space-y-6 border p-4 rounded-lg ${isDarkMode
+          ? "border-gray-600 bg-gray-800"
+          : "border-gray-400 bg-white"
+          }`}
       >
         <button
           onClick={() => openModal("personal")}
-          className={`absolute top-4 right-4 flex items-center gap-1 ${
-            isDarkMode
-              ? "text-gray-300 hover:text-blue-400"
-              : "text-gray-500 hover:text-blue-600"
-          }`}
+          className={`absolute top-4 right-4 flex items-center gap-1 ${isDarkMode
+            ? "text-gray-300 hover:text-blue-400"
+            : "text-gray-500 hover:text-blue-600"
+            }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -288,9 +272,8 @@ const ProfileSettings = () => {
           <span className="text-sm">Edit</span>
         </button>
         <h2
-          className={`text-lg font-semibold border-b pb-2 ${
-            isDarkMode ? "border-gray-700" : "border-gray-300"
-          }`}
+          className={`text-lg font-semibold border-b pb-2 ${isDarkMode ? "border-gray-700" : "border-gray-300"
+            }`}
         >
           Personal information
         </h2>
@@ -298,9 +281,8 @@ const ProfileSettings = () => {
         <div className="flex gap-14">
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               First Name
             </label>
@@ -310,9 +292,8 @@ const ProfileSettings = () => {
           </div>
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               Last Name
             </label>
@@ -325,9 +306,8 @@ const ProfileSettings = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               Email address
             </label>
@@ -335,9 +315,8 @@ const ProfileSettings = () => {
           </div>
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               Phone
             </label>
@@ -347,9 +326,8 @@ const ProfileSettings = () => {
 
         <div>
           <label
-            className={`block text-sm font-medium mb-1 ${
-              isDarkMode ? "text-gray-400" : "text-gray-500"
-            }`}
+            className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+              }`}
           >
             Bio
           </label>
@@ -357,20 +335,20 @@ const ProfileSettings = () => {
         </div>
       </div>
 
+
+
       <div
-        className={`relative space-y-6 border rounded-lg p-4 ${
-          isDarkMode
-            ? "border-gray-600 bg-gray-800"
-            : "border-gray-400 bg-white"
-        }`}
+        className={`relative space-y-6 border rounded-lg p-4 ${isDarkMode
+          ? "border-gray-600 bg-gray-800"
+          : "border-gray-400 bg-white"
+          }`}
       >
         <button
           onClick={() => openModal("address")}
-          className={`absolute top-4 right-4 flex items-center gap-1 ${
-            isDarkMode
-              ? "text-gray-300 hover:text-blue-400"
-              : "text-gray-500 hover:text-blue-600"
-          }`}
+          className={`absolute top-4 right-4 flex items-center gap-1 ${isDarkMode
+            ? "text-gray-300 hover:text-blue-400"
+            : "text-gray-500 hover:text-blue-600"
+            }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -383,9 +361,8 @@ const ProfileSettings = () => {
           <span className="text-sm">Edit</span>
         </button>
         <h2
-          className={`text-lg font-semibold border-b pb-2 ${
-            isDarkMode ? "border-gray-700" : "border-gray-300"
-          }`}
+          className={`text-lg font-semibold border-b pb-2 ${isDarkMode ? "border-gray-700" : "border-gray-300"
+            }`}
         >
           Address
         </h2>
@@ -393,9 +370,8 @@ const ProfileSettings = () => {
         <div className="flex gap-10">
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               Country
             </label>
@@ -403,9 +379,8 @@ const ProfileSettings = () => {
           </div>
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               City/State
             </label>
@@ -416,9 +391,8 @@ const ProfileSettings = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               Postal Code
             </label>
@@ -428,9 +402,8 @@ const ProfileSettings = () => {
           </div>
           <div>
             <label
-              className={`block text-sm font-medium mb-1 ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+              className={`block text-sm font-medium mb-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
             >
               TAX ID
             </label>
@@ -441,32 +414,23 @@ const ProfileSettings = () => {
 
       {isOpen && (
         <div
-          className={`modal modal-open ${
-            isDarkMode ? "bg-BgDarkPrimary/80" : "bg-gray-500/80"
-          }`}
+          className={`modal modal-open ${isDarkMode ? "bg-BgDarkPrimary/80" : "bg-gray-500/80"
+            }`}
         >
           <div
-            className={`modal-box ${
-              isDarkMode
-                ? "bg-BgDarkSecondary text-gray-300 border border-BgDarkAccent"
-                : "bg-white text-gray-800 border border-gray-300"
-            }`}
-          >
-            {" "}
-            {/* Added bg-white */}
-            <h3 className="text-lg font-bold">
-              Edit {activeSection} Information
-            </h3>
+            className={`modal-box ${isDarkMode
+              ? "bg-BgDarkSecondary text-gray-300 border border-BgDarkAccent"
+              : "bg-white text-gray-800 border border-gray-300"
+              }`}
+          > {/* Added bg-white */}
+            <h3 className="text-lg font-bold">Edit {activeSection} Information</h3>
             <form onSubmit={handleSubmit} className="space-y-4 mt-4 ">
               {activeSection === "photo" && (
                 <div className="space-y-4">
-                  <label className="block text-sm font-medium">
-                    Upload Photo
-                  </label>
+                  <label className="block text-sm font-medium">Upload Photo</label>
 
                   <div className="border-2 border-dashed border-gray-300 p-4 rounded-lg flex flex-col items-center">
-                    {formData.photoFile &&
-                    formData.photoFile instanceof Blob ? (
+                    {formData.photoFile && formData.photoFile instanceof Blob ? (
                       <div className="relative w-32 h-32 mb-3">
                         <img
                           src={URL.createObjectURL(formData.photoFile)}
@@ -475,9 +439,7 @@ const ProfileSettings = () => {
                         />
                         <button
                           type="button"
-                          onClick={() =>
-                            setFormData({ ...formData, photoFile: null })
-                          }
+                          onClick={() => setFormData({ ...formData, photoFile: null })}
                           className="absolute top-0 right-0 bg-white rounded-full p-1 text-red-500"
                         >
                           &times;
@@ -486,9 +448,7 @@ const ProfileSettings = () => {
                     ) : (
                       <div className="text-center text-gray-500">
                         <p>Drag & drop an image or click to browse</p>
-                        <p className="text-xs">
-                          Supports jpg, png, jpeg, and converts to WebP
-                        </p>
+                        <p className="text-xs">Supports jpg, png, jpeg, and converts to WebP</p>
                       </div>
                     )}
                     <input
@@ -510,32 +470,24 @@ const ProfileSettings = () => {
               {activeSection === "personal" && (
                 <>
                   <div>
-                    <label className="block text-sm font-medium">
-                      First Name
-                    </label>
+                    <label className="block text-sm font-medium">First Name</label>
                     <input
                       type="text"
                       name="firstName"
                       value={formData.name?.split(" ")[0] || ""}
                       onChange={(e) => {
-                        const lastName =
-                          formData.name?.split(" ").slice(1).join(" ") || "";
+                        const lastName = formData.name?.split(" ").slice(1).join(" ") || "";
                         setFormData((prev) => ({
                           ...prev,
                           name: `${e.target.value} ${lastName}`,
                         }));
                       }}
-                      className={`w-full p-2 border rounded ${
-                        isDarkMode
-                          ? "bg-BgDarkAccent text-white border-gray-600"
-                          : "bg-white text-black border"
-                      }`}
+                      className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                        }`}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium">
-                      Last Name
-                    </label>
+                    <label className="block text-sm font-medium">Last Name</label>
                     <input
                       type="text"
                       name="lastName"
@@ -547,11 +499,8 @@ const ProfileSettings = () => {
                           name: `${firstName} ${e.target.value}`,
                         }));
                       }}
-                      className={`w-full p-2 border rounded ${
-                        isDarkMode
-                          ? "bg-BgDarkAccent text-white border-gray-600"
-                          : "bg-white text-black border"
-                      }`}
+                      className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                        }`}
                     />
                   </div>
                   <div>
@@ -561,11 +510,8 @@ const ProfileSettings = () => {
                       name="phone"
                       value={formData.phone || ""}
                       onChange={handleChange}
-                      className={`w-full p-2 border rounded ${
-                        isDarkMode
-                          ? "bg-BgDarkAccent text-white border-gray-600"
-                          : "bg-white text-black border"
-                      }`}
+                      className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                        }`}
                     />
                   </div>
                   <div className="col-span-2">
@@ -575,11 +521,8 @@ const ProfileSettings = () => {
                       value={formData.bio || ""}
                       onChange={handleChange}
                       rows={4}
-                      className={`w-full p-2 border rounded ${
-                        isDarkMode
-                          ? "bg-BgDarkAccent text-white border-gray-600"
-                          : "bg-white text-black border"
-                      }`}
+                      className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                        }`}
                     ></textarea>
                   </div>
                 </>
@@ -594,85 +537,60 @@ const ProfileSettings = () => {
                         name="city"
                         value={formData.city || ""}
                         onChange={handleChange}
-                        className={`w-full p-2 border rounded ${
-                          isDarkMode
-                            ? "bg-BgDarkAccent text-white border-gray-600"
-                            : "bg-white text-black border"
-                        }`}
+                        className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                          }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium">
-                        Country
-                      </label>
+                      <label className="block text-sm font-medium">Country</label>
                       <input
                         type="text"
                         name="country"
                         value={formData.country || ""}
                         onChange={handleChange}
-                        className={`w-full p-2 border rounded ${
-                          isDarkMode
-                            ? "bg-BgDarkAccent text-white border-gray-600"
-                            : "bg-white text-black border"
-                        }`}
+                        className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                          }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium">
-                        Postal Code
-                      </label>
+                      <label className="block text-sm font-medium">Postal Code</label>
                       <input
                         type="text"
                         name="postalCode"
                         value={formData.postalCode || ""}
                         onChange={handleChange}
-                        className={`w-full p-2 border rounded ${
-                          isDarkMode
-                            ? "bg-BgDarkAccent text-white border-gray-600"
-                            : "bg-white text-black border"
-                        }`}
+                        className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                          }`}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium">
-                        TAX ID
-                      </label>
+                      <label className="block text-sm font-medium">TAX ID</label>
                       <input
                         type="text"
                         name="taxId"
                         value={formData.taxId || ""}
                         onChange={handleChange}
-                        className={`w-full p-2 border rounded ${
-                          isDarkMode
-                            ? "bg-BgDarkAccent text-white border-gray-600"
-                            : "bg-white text-black border"
-                        }`}
+                        className={`w-full p-2 border rounded ${isDarkMode ? 'bg-BgDarkAccent text-white border-gray-600' : 'bg-white text-black border'
+                          }`}
                       />
                     </div>
                   </div>
                 </>
               )}
               <div className="modal-action">
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="btn btn-ghost"
-                >
+                <button type="button" onClick={closeModal} className="btn btn-ghost">
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  className="btn bg-BgPrimary"
-                  disabled={isSubmitting}
-                >
+                <button type="submit" className="btn bg-BgPrimary" disabled={isSubmitting}>
                   {isSubmitting ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div >
       )}
-    </div>
-  );
+
+    </div >
+  )
 };
 export default ProfileSettings;

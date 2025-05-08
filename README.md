@@ -1,6 +1,6 @@
-# Biodekho
+# Biodekho Nexus
 
-Biodekho is a modern and user-friendly matchmaking platform designed to connect individuals seeking life partners. Built with the MERN stack (MongoDB, Express, React, Node.js), this platform provides a seamless and secure experience for users, emphasizing responsiveness, authentication, and robust functionality.
+Biodekho Nexus is a modern and user-friendly matchmaking platform designed to connect individuals seeking life partners. Built with the MERN stack (MongoDB, Express, React, Node.js), this platform provides a seamless and secure experience for users, emphasizing responsiveness, authentication, and robust functionality.
 
 ---
 
@@ -53,7 +53,7 @@ Ensure you have the following installed:
 
 ## Live Application
 
-[Visit Biodekho Here](#)
+[Visit Biodekho Nexus Here](#)
 
 ---
 
@@ -83,7 +83,7 @@ Ensure you have the following installed:
 We welcome contributions! To contribute:
 
 1. Fork the repository.
-2. Commit your changes (`git commit -m 'Biodekho'`).
+2. Commit your changes (`git commit -m 'Biodekho Nexus'`).
 3. Push to the branch (`git push origin feature-name`).
 4. Create a Pull Request.
 

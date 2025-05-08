@@ -39,9 +39,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const updateUserProfile = (object) => {
-    console.log("profile update by firebases");
-    return updateProfile(auth.currentUser, object);
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
 
   useEffect(() => {
@@ -64,7 +66,9 @@ const AuthProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, [axiosPublic]);
-  console.log(user);
+
+
+
   const authInfo = {
     createUser,
     loginUser,
