@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  baseURL: "https://matrimony-nexus-server.vercel.app",
+  baseURL: "https://bio-dekho-server.vercel.app",
 });
 
 const useAxiosPublic = () => {
