@@ -24,6 +24,7 @@ const BiodataDetailsPage = () => {
       setBiodata(response.data.biodata);
 
       const premiumResponse = await axiosSecure.get(`/users/${user.email}`);
+      console.log(premiumResponse?.data);
       setIsPremium(
         premiumResponse.data.premium && premiumResponse.data.approvedPremium
       );
@@ -75,30 +76,35 @@ const BiodataDetailsPage = () => {
 
   return (
     <div
-      className={`container mx-auto p-10 py-24 ${isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white text-gray-900"
-        }`}
+      className={`container mx-auto p-10 py-24 ${
+        isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white text-gray-900"
+      }`}
     >
       <h2 className="text-3xl font-bold mb-6">Biodata Details</h2>
       <Card
-        className={`overflow-hidden shadow rounded-lg border ${isDarkMode
+        className={`overflow-hidden shadow rounded-lg border ${
+          isDarkMode
             ? "bg-BgDarkSecondary border-BgDarkAccent text-gray-300"
             : "bg-white border-gray-200 text-gray-900"
-          }`}
+        }`}
       >
         <div
-          className={`px-4 py-5 sm:px-6 flex justify-between ${isDarkMode ? "bg-BgDarkSecondary" : ""
-            }`}
+          className={`px-4 py-5 sm:px-6 flex justify-between ${
+            isDarkMode ? "bg-BgDarkSecondary" : ""
+          }`}
         >
           <div>
             <h3
-              className={`text-lg leading-6 font-medium ${isDarkMode ? "text-gray-100" : "text-gray-900"
-                }`}
+              className={`text-lg leading-6 font-medium ${
+                isDarkMode ? "text-gray-100" : "text-gray-900"
+              }`}
             >
               User Profile
             </h3>
             <p
-              className={`mt-1 max-w-2xl text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                }`}
+              className={`mt-1 max-w-2xl text-sm ${
+                isDarkMode ? "text-gray-400" : "text-gray-500"
+              }`}
             >
               Details about the user.
             </p>
@@ -108,10 +114,15 @@ const BiodataDetailsPage = () => {
           </Avatar>
         </div>
         <div
-          className={`border-t px-4 py-5 sm:p-0 ${isDarkMode ? "border-BgDarkAccent" : "border-gray-200"
-            }`}
+          className={`border-t px-4 py-5 sm:p-0 ${
+            isDarkMode ? "border-BgDarkAccent" : "border-gray-200"
+          }`}
         >
-          <dl className={`sm:divide-y ${isDarkMode ? "sm:divide-BgDarkAccent" : "sm:divide-gray-200"}`}>
+          <dl
+            className={`sm:divide-y ${
+              isDarkMode ? "sm:divide-BgDarkAccent" : "sm:divide-gray-200"
+            }`}
+          >
             {Object.entries({
               "Full Name": biodata.name,
               Age: biodata.age,
@@ -130,14 +141,16 @@ const BiodataDetailsPage = () => {
                 className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
               >
                 <dt
-                  className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
+                  className={`text-sm font-medium ${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}
                 >
                   {label}
                 </dt>
                 <dd
-                  className={`mt-1 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-900"
-                    } sm:mt-0 sm:col-span-2`}
+                  className={`mt-1 text-sm ${
+                    isDarkMode ? "text-gray-300" : "text-gray-900"
+                  } sm:mt-0 sm:col-span-2`}
                 >
                   {value || "N/A"}
                 </dd>
@@ -147,28 +160,32 @@ const BiodataDetailsPage = () => {
               <>
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt
-                    className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
+                    className={`text-sm font-medium ${
+                      isDarkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
                   >
                     Contact Number
                   </dt>
                   <dd
-                    className={`mt-1 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-900"
-                      } sm:mt-0 sm:col-span-2`}
+                    className={`mt-1 text-sm ${
+                      isDarkMode ? "text-gray-300" : "text-gray-900"
+                    } sm:mt-0 sm:col-span-2`}
                   >
                     {biodata.mobileNumber}
                   </dd>
                 </div>
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt
-                    className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                      }`}
+                    className={`text-sm font-medium ${
+                      isDarkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
                   >
                     Email
                   </dt>
                   <dd
-                    className={`mt-1 text-sm ${isDarkMode ? "text-gray-300" : "text-gray-900"
-                      } sm:mt-0 sm:col-span-2`}
+                    className={`mt-1 text-sm ${
+                      isDarkMode ? "text-gray-300" : "text-gray-900"
+                    } sm:mt-0 sm:col-span-2`}
                   >
                     {biodata.contactEmail}
                   </dd>
@@ -177,23 +194,26 @@ const BiodataDetailsPage = () => {
             ) : (
               <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt
-                  className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
+                  className={`text-sm font-medium ${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}
                 >
                   Contact
                 </dt>
                 <dd className="flex gap-4 flex-row mt-1 text-sm sm:mt-0 sm:col-span-2">
                   <Button
                     onClick={handleRequestPremium}
-                    className={`bg-custom-gradient ${isDarkMode ? "text-gray-300" : "text-white"
-                      }`}
+                    className={`bg-custom-gradient ${
+                      isDarkMode ? "text-gray-300" : "text-white"
+                    }`}
                   >
                     Request Premium
                   </Button>
                   <Button
                     onClick={handleRequestContact}
-                    className={`bg-custom-gradient ${isDarkMode ? "text-gray-300" : "text-white"
-                      }`}
+                    className={`bg-custom-gradient ${
+                      isDarkMode ? "text-gray-300" : "text-white"
+                    }`}
                   >
                     Request Contact Information
                   </Button>
@@ -203,8 +223,9 @@ const BiodataDetailsPage = () => {
             {/* Add to Favourites Button */}
             <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt
-                className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                  }`}
+                className={`text-sm font-medium ${
+                  isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
               >
                 Add to Favourites
               </dt>
@@ -212,8 +233,9 @@ const BiodataDetailsPage = () => {
                 <Button
                   onClick={handleAddToFavourites}
                   disabled={isFavourite}
-                  className={`bg-custom-gradient ${isDarkMode ? "text-gray-300" : "text-white"
-                    }`}
+                  className={`bg-custom-gradient ${
+                    isDarkMode ? "text-gray-300" : "text-white"
+                  }`}
                 >
                   {isFavourite ? "Already in Favourites" : "Add to Favourites"}
                 </Button>

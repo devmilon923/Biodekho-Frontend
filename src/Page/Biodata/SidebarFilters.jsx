@@ -6,7 +6,7 @@ const SidebarFilters = ({ onFiltersChange }) => {
   const defaultFilters = {
     gender: "Male",
     ageRange: [18, 35],
-    heightRange: [0, 190],
+    heightRange: [0, 10],
     permanentDivision: "",
     biodataId: "",
   };
@@ -48,18 +48,20 @@ const SidebarFilters = ({ onFiltersChange }) => {
       {/* Gender Filter */}
       <div>
         <label
-          className={`block text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-900"
-            }`}
+          className={`block text-sm font-medium ${
+            isDarkMode ? "text-gray-200" : "text-gray-900"
+          }`}
         >
           Gender
         </label>
         <select
           value={filters.gender}
           onChange={handleGenderChange}
-          className={`w-full p-2 border rounded ${isDarkMode
-            ? "bg-gray-800 text-gray-200 border-gray-600"
-            : "bg-white text-gray-900 border-gray-300"
-            }`}
+          className={`w-full p-2 border rounded ${
+            isDarkMode
+              ? "bg-gray-800 text-gray-200 border-gray-600"
+              : "bg-white text-gray-900 border-gray-300"
+          }`}
         >
           <option value="Male">Male</option>
           <option value="Female">Female</option>
@@ -79,7 +81,7 @@ const SidebarFilters = ({ onFiltersChange }) => {
       <RangeSlider
         label="Height Range"
         min={0}
-        max={250}
+        max={10}
         values={filters.heightRange}
         onChange={handleHeightChange}
       />
@@ -87,18 +89,20 @@ const SidebarFilters = ({ onFiltersChange }) => {
       {/* Permanent Division Filter */}
       <div>
         <label
-          className={`block text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-900"
-            }`}
+          className={`block text-sm font-medium ${
+            isDarkMode ? "text-gray-200" : "text-gray-900"
+          }`}
         >
           Permanent Division
         </label>
         <select
           value={filters.permanentDivision}
           onChange={handleDivisionChange}
-          className={`w-full p-2 border rounded ${isDarkMode
-            ? "bg-gray-800 text-gray-200 border-gray-600"
-            : "bg-white text-gray-900 border-gray-300"
-            }`}
+          className={`w-full p-2 border rounded ${
+            isDarkMode
+              ? "bg-gray-800 text-gray-200 border-gray-600"
+              : "bg-white text-gray-900 border-gray-300"
+          }`}
         >
           <option value="">Select Division</option>
           <option value="Dhaka">Dhaka</option>
@@ -114,8 +118,9 @@ const SidebarFilters = ({ onFiltersChange }) => {
       {/* Biodata ID Filter */}
       <div>
         <label
-          className={`block text-sm font-medium ${isDarkMode ? "text-gray-200" : "text-gray-900"
-            }`}
+          className={`block text-sm font-medium ${
+            isDarkMode ? "text-gray-200" : "text-gray-900"
+          }`}
         >
           Biodata ID
         </label>
@@ -123,18 +128,20 @@ const SidebarFilters = ({ onFiltersChange }) => {
           type="text"
           value={filters.biodataId}
           onChange={handleBiodataIdChange}
-          className={`w-full p-2 border rounded ${isDarkMode
-            ? "bg-gray-800 text-gray-200 border-gray-600"
-            : "bg-white text-gray-900 border-gray-300"
-            }`}
+          className={`w-full p-2 border rounded ${
+            isDarkMode
+              ? "bg-gray-800 text-gray-200 border-gray-600"
+              : "bg-white text-gray-900 border-gray-300"
+          }`}
         />
       </div>
 
       {/* Apply Filters Button */}
       <button
         onClick={applyFilters}
-        className={`w-full py-2 rounded ${isDarkMode ? "bg-BgPrimary text-gray-200" : "bg-BgPrimary text-white"
-          } transition`}
+        className={`w-full py-2 rounded ${
+          isDarkMode ? "bg-BgPrimary text-gray-200" : "bg-BgPrimary text-white"
+        } transition`}
       >
         Apply Filters
       </button>
@@ -142,10 +149,9 @@ const SidebarFilters = ({ onFiltersChange }) => {
       {/* Clear Filters Button */}
       <button
         onClick={clearFilters}
-        className={`w-full py-2 rounded mt-2 ${isDarkMode
-          ? "bg-gray-600 text-gray-200"
-          : "bg-gray-500 text-white"
-          } transition`}
+        className={`w-full py-2 rounded mt-2 ${
+          isDarkMode ? "bg-gray-600 text-gray-200" : "bg-gray-500 text-white"
+        } transition`}
       >
         Clear Filters
       </button>

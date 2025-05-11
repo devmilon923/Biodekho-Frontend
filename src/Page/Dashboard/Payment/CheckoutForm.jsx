@@ -80,7 +80,7 @@ const CheckoutForm = ({ biodataId, planName, price }) => {
           status: "completed",
         };
 
-        await axiosSecure.post("/payments", paymentData);
+        // await axiosSecure.post("/payments", paymentData);
         await axiosSecure.post("/users/contactRequests", paymentData);
 
         Swal.fire({

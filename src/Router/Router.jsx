@@ -58,9 +58,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://bio-dekho-server.vercel.app/biodatas/${params.biodataId}`
-          ),
+          fetch(`http://localhost:5012/biodatas/${params.biodataId}`),
       },
       { path: "/login", element: <LoginPage /> },
       {
@@ -83,9 +81,7 @@ const router = createBrowserRouter([
         path: "payments/:transactionId",
         element: <PaymentSuccess />,
         loader: ({ params }) =>
-          fetch(
-            `https://bio-dekho-server.vercel.app/payment/${params.transactionId}`
-          ),
+          fetch(`http://localhost:5012/payment/${params.transactionId}`),
       },
       {
         path: "/checkout/:biodataId",
@@ -95,9 +91,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://bio-dekho-server.vercel.app/biodatas/${params.biodataId}`
-          ),
+          fetch(`http://localhost:5012/biodatas/${params.biodataId}`),
       },
     ],
   },
@@ -118,7 +112,7 @@ const router = createBrowserRouter([
       {
         path: "favouritesBiodata",
         element: <MyFavouritesPage />,
-        loader: () => fetch("https://bio-dekho-server.vercel.app/biodatas"),
+        loader: () => fetch("http://localhost:5012/biodatas"),
       },
       { path: "paymentHistory", element: <PaymentHistory /> },
       { path: "GotMarried", element: <GotMarried /> },

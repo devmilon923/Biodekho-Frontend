@@ -4,7 +4,7 @@ import ThemeContext from "@/context/ThemeContext";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import imageCompression from "browser-image-compression";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Swal from "sweetalert2";
 
 const EditBioData = ({ existingBiodata, biodataId }) => {
@@ -16,42 +16,57 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
   const [compressedImage, setCompressedImage] = useState(null);
   const { isDarkMode } = useContext(ThemeContext);
 
-  const [biodata, setBiodata] = useState({
-    type: "",
-    name: "",
-    profileImageLink: "",
-    dateOfBirth: "",
-    height: "",
-    weight: "",
-    age: "",
-    occupation: "",
-    race: "",
-    fathersName: "",
-    mothersName: "",
-    permanentDivision: "",
-    presentDivision: "",
-    expectedPartnerAge: "",
-    expectedPartnerHeight: "",
-    expectedPartnerWeight: "",
-    contactEmail: user?.email,
-    mobileNumber: "",
-    biodataId: "",
-  });
+  const defaultBiodata = useMemo(
+    () => ({
+      type: "Male",
+      name: "",
+      profileImageLink: "",
+      dateOfBirth: "",
+      heightFeet: 0,
+      heightInches: 0,
+      weight: "",
+      age: "",
+      occupation: "",
+      race: "",
+      fathersName: "",
+      mothersName: "",
+      permanentDivision: "Dhaka",
+      presentDivision: "Dhaka",
+      expectedPartnerAge: "20-24",
+      expectedPartnerHeight: "Below 5 feet",
+      expectedPartnerWeight: "Below 45 kg",
+      contactEmail: user?.email,
+      mobileNumber: "",
+      biodataId: "",
+    }),
+    [user?.email]
+  );
+
+  // State initialization
+  const [biodata, setBiodata] = useState(() =>
+    existingBiodata
+      ? {
+          ...defaultBiodata,
+          ...existingBiodata,
+          heightFeet: existingBiodata.heightFeet || 0,
+          heightInches: existingBiodata.heightInches || 0,
+        }
+      : defaultBiodata
+  );
 
   const [isLoading, setIsLoading] = useState(false);
 
   // Populate form if editing existing biodata
   useEffect(() => {
+    console.log(existingBiodata);
     if (existingBiodata) {
-      const [feet, inches] = existingBiodata.height
-        ? existingBiodata.height
-            .split("'")
-            .map((part) => part.replace('"', "").trim())
-        : [0, 0];
+      const { heightFeet, heightInches } = existingBiodata;
+
+      // Ensure heightFeet and heightInches are defined or fallback to 0
       setBiodata({
         ...existingBiodata,
-        heightFeet: feet || "0",
-        heightInches: inches || "0",
+        heightFeet: heightFeet || 0,
+        heightInches: heightInches || 0,
       });
     }
   }, [existingBiodata]);
@@ -86,15 +101,15 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
     setIsLoading(true);
 
     try {
-      const feet = biodata.heightFeet || "0";
-      const inches = biodata.heightInches || "0";
-      const combinedHeight = `${feet}'${inches}"`;
-
+      const feet = biodata?.heightFeet || 0;
+      const inches = biodata?.heightInches || 0;
+      const combinedHeight = `${feet}.${inches}`;
+      console.log(Number(combinedHeight?.trim()));
       const age = parseInt(biodata.age);
 
       const biodataToSubmit = {
         ...biodata,
-        height: combinedHeight.trim(),
+        height: Number(combinedHeight?.trim()),
         age,
       };
 
@@ -143,7 +158,7 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
       } else {
         response = await axiosSecure.post("/biodatas", biodataToSubmit);
       }
-
+      console.log(biodataToSubmit);
       if (response.data.success) {
         Swal.fire({
           position: "center",
@@ -289,9 +304,12 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
                 <input
                   type="number"
                   name="heightFeet"
-                  value={biodata.heightFeet || ""}
+                  defaultValue={biodata.heightFeet || 0}
                   onChange={(e) =>
-                    setBiodata({ ...biodata, heightFeet: e.target.value })
+                    setBiodata({
+                      ...biodata,
+                      heightFeet: parseInt(e.target.value),
+                    })
                   }
                   placeholder="Feet"
                   min="0"
@@ -306,9 +324,12 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
                 <input
                   type="number"
                   name="heightInches"
-                  value={biodata.heightInches || ""}
+                  defaultValue={biodata.heightInches || 0}
                   onChange={(e) =>
-                    setBiodata({ ...biodata, heightInches: e.target.value })
+                    setBiodata({
+                      ...biodata,
+                      heightInches: parseInt(e.target.value),
+                    })
                   }
                   placeholder="Inches"
                   min="0"

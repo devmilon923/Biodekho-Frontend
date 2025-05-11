@@ -47,27 +47,29 @@ const ManageUsers = () => {
         title={
           "Oversee user accounts, control access levels, and ensure platform integrity through effective user management."
         }
-
       />
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
       {isLoading ? (
         <p>Loading users...</p>
       ) : (
-        <Table className={` ${isDarkMode ? "bg-BgDarkSecondary text-gray-300" : "border-gray-300 bg-white"}`}>
-          <thead className={`overflow-x-auto rounded-lg border shadow ${isDarkMode
-            ? "border-BgDarkAccent bg-BgDarkPrimary"
-            : "border-gray-300 bg-white"
-            }`}>
+        <Table
+          className={` ${
+            isDarkMode
+              ? "bg-BgDarkSecondary text-gray-300"
+              : "border-gray-300 bg-white"
+          }`}
+        >
+          <thead
+            className={`overflow-x-auto rounded-lg border shadow ${
+              isDarkMode
+                ? "border-BgDarkAccent bg-BgDarkPrimary"
+                : "border-gray-300 bg-white"
+            }`}
+          >
             <tr className="">
-              <th className="px-6 py-3">
-                Name
-              </th>
-              <th className="px-6 py-3">
-                Email
-              </th>
-              <th className="px-6 py-3">
-                Role
-              </th>
+              <th className="px-6 py-3">Name</th>
+              <th className="px-6 py-3">Email</th>
+              <th className="px-6 py-3">Role</th>
               <th className="px-4 py-2 text-center text-sm font-semibold text-gray-600">
                 Actions
               </th>
