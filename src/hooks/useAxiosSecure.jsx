@@ -17,7 +17,7 @@ const useAxiosSecure = () => {
     // Add request interceptor to include token from localStorage
     const requestInterceptor = axiosSecure.interceptors.request.use(
       (config) => {
-        const token = localStorage.getItem("accessToken");
+        const token = localStorage.getItem("accessToken") || null;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
@@ -42,7 +42,7 @@ const useAxiosSecure = () => {
     );
 
     if (shouldNavigate) {
-      navigate("/login");
+      return navigate("/login");
     }
 
     return () => {

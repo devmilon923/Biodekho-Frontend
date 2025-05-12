@@ -23,8 +23,8 @@ const BiodataDetailsPage = () => {
       const response = await axiosSecure.get(`/biodatas/${biodataId}`);
       setBiodata(response.data.biodata);
 
-      const premiumResponse = await axiosSecure.get(`/users/${user.email}`);
-      console.log(premiumResponse?.data);
+      const premiumResponse = await axiosSecure.get(`/users`);
+      // console.log(premiumResponse?.data);
       setIsPremium(
         premiumResponse.data.premium && premiumResponse.data.approvedPremium
       );

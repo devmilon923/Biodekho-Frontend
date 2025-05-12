@@ -75,12 +75,13 @@ const CheckoutForm = ({ biodataId, planName, price }) => {
           biodataId,
           planName,
           email: user.email,
+          mobileNumber: user?.phone,
           transactionId: paymentIntent.id,
           price,
           status: "completed",
         };
 
-        // await axiosSecure.post("/payments", paymentData);
+        await axiosSecure.post("/payments", paymentData);
         await axiosSecure.post("/users/contactRequests", paymentData);
 
         Swal.fire({

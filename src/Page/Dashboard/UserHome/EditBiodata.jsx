@@ -11,6 +11,7 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
   const [compressedImage, setCompressedImage] = useState(null);
@@ -58,7 +59,7 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
 
   // Populate form if editing existing biodata
   useEffect(() => {
-    console.log(existingBiodata);
+    // console.log(existingBiodata);
     if (existingBiodata) {
       const { heightFeet, heightInches } = existingBiodata;
 
@@ -104,7 +105,7 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
       const feet = biodata?.heightFeet || 0;
       const inches = biodata?.heightInches || 0;
       const combinedHeight = `${feet}.${inches}`;
-      console.log(Number(combinedHeight?.trim()));
+      // console.log(Number(combinedHeight?.trim()));
       const age = parseInt(biodata.age);
 
       const biodataToSubmit = {
@@ -158,7 +159,7 @@ const EditBioData = ({ existingBiodata, biodataId }) => {
       } else {
         response = await axiosSecure.post("/biodatas", biodataToSubmit);
       }
-      console.log(biodataToSubmit);
+      // console.log(biodataToSubmit);
       if (response.data.success) {
         Swal.fire({
           position: "center",
