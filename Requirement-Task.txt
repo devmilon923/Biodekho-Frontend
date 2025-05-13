@@ -1,7 +1,7 @@
-Matrimony Nexus - Project Working Roadmap
+Biodekho - Project Working Roadmap
 
 Project Overview:
-The Matrimony Nexus connects individuals seeking life partners in an intuitive, user-friendly environment. This MERN stack-based platform emphasizes responsive design, secure authentication, and effective matchmaking functionality.
+The Biodekho connects individuals seeking life partners in an intuitive, user-friendly environment. This MERN stack-based platform emphasizes responsive design, secure authentication, and effective matchmaking functionality.
 
 ---
 

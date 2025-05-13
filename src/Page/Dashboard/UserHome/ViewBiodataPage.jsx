@@ -1,10 +1,9 @@
-import { Button } from "@/Components/ui/button";
-import ThemeContext from "@/context/ThemeContext";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useContext, useEffect, useState } from "react";
+import ThemeContext from "@/context/ThemeContext";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ViewBiodataPage = () => {
@@ -18,12 +17,17 @@ const ViewBiodataPage = () => {
     const fetchBiodata = async () => {
       if (!user?.email) return;
 
-      const response = await axiosSecure.get(`/biodatas?email=${user.email}`);
-      if (response.data.data.length > 0) {
-        setBiodata(response.data.data[0]);
-      } else {
-        toast.error("No biodata found. Redirecting to create biodata...");
-        navigate("/dashboard/editBiodata");
+      try {
+        const response = await axiosSecure.get(`/biodatas?email=${user.email}`);
+        if (response.data.data.length > 0) {
+          setBiodata(response.data.data[0]);
+        } else {
+          toast.error("No biodata found. Redirecting to create biodata...");
+          navigate("/dashboard/editBiodata");
+        }
+      } catch (error) {
+        toast.error("Failed to fetch biodata");
+        console.error("Error:", error);
       }
     };
 
@@ -31,82 +35,124 @@ const ViewBiodataPage = () => {
   }, [user?.email, axiosSecure, navigate]);
 
   const handleMakePremiumRequest = async () => {
-    const { isConfirmed } = await Swal.fire({
-      title: "Are you sure?",
-      text: "Your biodata will be sent for admin approval to become premium.",
-      icon: "warning",
+    const result = await Swal.fire({
+      title: "Make Premium?",
+      text: "Submit your biodata for premium approval?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, make it premium!",
+      confirmButtonText: "Yes, submit",
+      cancelButtonText: "Cancel",
     });
 
-    if (isConfirmed) {
-      const response = await axiosSecure.post("/users/premium-request", {
-        id: biodata._id,
-      });
-
-      if (response.data.success) {
-        Swal.fire("Success!", "Your premium request has been submitted.", "success");
-      } else {
-        Swal.fire("Error", response.data.message || "Failed to submit premium request.", "error");
+    if (result.isConfirmed) {
+      try {
+        const response = await axiosSecure.post("/users/premium-request", {
+          id: biodata._id
+        });
+        
+        if (response.data.success) {
+          toast.success("Premium request submitted!");
+        }
+      } catch (error) {
+        toast.error("Failed to submit request");
       }
     }
   };
 
-  if (!biodata) return <div className="p-10">Loading biodata...</div>;
-
-  return (
-    <div className={`container mx-auto p-10 py-24 ${isDarkMode ? "bg-BgDarkPrimary text-gray-100" : "bg-white text-gray-900"}`}>
-      <h2 className="text-3xl font-bold mb-6">View Biodata</h2>
-      <div className={`p-6 rounded-lg shadow-lg ${isDarkMode ? "bg-BgDarkSecondary" : "bg-white"}`}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Biodata Details */}
-          <div>
-            {Object.entries({
-              "Biodata ID": biodata.biodataId,
-              "Biodata Type": biodata.type,
-              "Name": biodata.name,
-              "Date of Birth": biodata.dateOfBirth,
-              "Height": biodata.height,
-              "Weight": biodata.weight,
-              "Age": biodata.age,
-              "Occupation": biodata.occupation,
-              "Race": biodata.race,
-              "Father's Name": biodata.fathersName,
-              "Mother's Name": biodata.mothersName,
-              "Permanent Division": biodata.permanentDivision,
-              "Present Division": biodata.presentDivision,
-              "Expected Partner Age": biodata.expectedPartnerAge,
-              "Expected Partner Height": biodata.expectedPartnerHeight,
-              "Expected Partner Weight": biodata.expectedPartnerWeight,
-              "Contact Email": biodata.contactEmail,
-              "Mobile Number": biodata.mobileNumber,
-            }).map(([label, value]) => (
-              <div key={label} className="mb-4">
-                <h4 className={`text-sm font-medium ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>{label}</h4>
-                <p className={`text-lg ${isDarkMode ? "text-gray-200" : "text-gray-800"}`}>{value || "N/A"}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Profile Image */}
-          <div>
-            <img
-              src={biodata.profileImageLink}
-              alt={biodata.name}
-              className="w-64 h-64 object-cover rounded-lg"
-            />
-          </div>
-        </div>
-
-        {/* Make Premium Button */}
-        <div className="mt-6 text-center">
-          <Button onClick={handleMakePremiumRequest} className="bg-custom-gradient text-white">
-            Make Biodata to Premium
-          </Button>
+  if (!biodata) {
+    return (
+      <div className="p-8">
+        <h2 className="text-2xl mb-4">Loading biodata...</h2>
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+          <div className="h-4 bg-gray-200 rounded"></div>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className={`min-h-screen p-4 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"}`}>
+      <div className="max-w-4xl mx-auto">
+        <div className={`p-6 rounded-lg shadow-md ${isDarkMode ? "bg-gray-700" : "bg-gray-50"}`}>
+          <div className="flex flex-col md:flex-row gap-6 mb-8">
+            <div className="w-full md:w-1/3">
+              <img
+                src={biodata.profileImageLink}
+                alt={biodata.name}
+                className="w-full h-auto rounded-lg shadow"
+              />
+              <div className={`mt-2 px-3 py-1 rounded-full text-sm font-medium inline-block ${
+                isDarkMode ? "bg-purple-600 text-white" : "bg-purple-100 text-purple-800"
+              }`}>
+                {biodata.type}
+              </div>
+            </div>
+            
+            <div className="w-full md:w-2/3">
+              <h2 className="text-2xl font-bold mb-2">{biodata.name}</h2>
+              <p className="text-gray-500 mb-4">Biodata ID: {biodata.biodataId}</p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <h3 className="font-semibold mb-2">Personal Information</h3>
+                  <InfoField label="Age" value={biodata.age} />
+                  <InfoField label="Date of Birth" value={biodata.dateOfBirth} />
+                  <InfoField label="Height" value={`${biodata.height} cm`} />
+                  <InfoField label="Weight" value={`${biodata.weight} kg`} />
+                </div>
+                
+                <div>
+                  <h3 className="font-semibold mb-2">Contact Details</h3>
+                  <InfoField label="Email" value={biodata.contactEmail} />
+                  <InfoField label="Mobile" value={biodata.mobileNumber} />
+                  <InfoField label="Occupation" value={biodata.occupation} />
+                  <InfoField label="Location" value={biodata.presentDivision} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h3 className="font-semibold mb-3">Family Information</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <InfoField label="Father's Name" value={biodata.fathersName} />
+              <InfoField label="Mother's Name" value={biodata.mothersName} />
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h3 className="font-semibold mb-3">Partner Expectations</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <InfoField label="Age" value={biodata.expectedPartnerAge} />
+              <InfoField label="Height" value={biodata.expectedPartnerHeight} />
+              <InfoField label="Weight" value={biodata.expectedPartnerWeight} />
+            </div>
+          </div>
+
+          <button
+            onClick={handleMakePremiumRequest}
+            className={`px-6 py-2 rounded-md font-medium ${
+              isDarkMode 
+                ? "bg-purple-600 hover:bg-purple-700 text-white" 
+                : "bg-purple-500 hover:bg-purple-600 text-white"
+            }`}
+          >
+            Make Premium
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Simple reusable component for displaying info fields
+const InfoField = ({ label, value }) => {
+  return (
+    <div className="mb-2">
+      <span className="text-sm text-gray-500">{label}: </span>
+      <span className="font-medium">{value || "N/A"}</span>
     </div>
   );
 };

@@ -69,8 +69,8 @@ const PaymentSuccess = () => {
     // Footer
     doc.setFontSize(10);
     doc.setTextColor(150, 150, 150);
-    doc.text("Matrimony Nexus", 14, 185);
-    doc.text("support@matrimonynexus.com", 14, 190);
+    doc.text("Biodekho", 14, 185);
+    doc.text("support@biodekho.com", 14, 190);
     doc.text("+880 1777-123456", 14, 195);
 
     // Footer Line

@@ -7,10 +7,7 @@ const CallToActionBanner = () => {
 
   return (
     <div
-      className={`rounded-lg shadow-lg p-8 flex justify-between items-center relative max-w-6xl mx-auto ${isDarkMode
-        ? "bg-gradient-to-r from-red-800 to-red-700 text-gray-200"
-        : "bg-gradient-to-r from-red-600 to-red-500 text-white"
-        }`}
+      className={`rounded-lg shadow-lg p-8 flex justify-between items-center relative max-w-6xl mx-auto ${"bg-custom-gradient text-white"}`}
     >
       <div
         className="absolute inset-0 opacity-10 bg-cover bg-no-repeat"
@@ -31,10 +28,11 @@ const CallToActionBanner = () => {
 
       <NavLink to="/register">
         <button
-          className={`relative z-10 font-semibold px-6 py-3 rounded-lg shadow-lg transition ${isDarkMode
-            ? "bg-gray-800 text-gray-200 hover:bg-gray-700"
-            : "bg-white text-red-600 hover:bg-gray-100"
-            }`}
+          className={`relative z-10 font-semibold px-6 py-3 rounded-lg shadow-lg transition ${
+            isDarkMode
+              ? "bg-BgPrimary text-gray-200 hover:bg-gray-700"
+              : "bg-white text-red-600 hover:bg-gray-100"
+          }`}
         >
           Get Started Now
         </button>

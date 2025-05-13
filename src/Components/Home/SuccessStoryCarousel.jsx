@@ -20,8 +20,11 @@ const SuccessStoryCarousel = () => {
 
   return (
     <section
-      className={`py-16 ${isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-gray-50 text-gray-800"
-        }`}
+      className={`py-16 ${
+        isDarkMode
+          ? "bg-BgDarkPrimary text-gray-200"
+          : "bg-gray-50 text-gray-800"
+      }`}
     >
       <div className="container max-w-7xl mx-auto px-8 flex flex-wrap">
         <h2 className="text-4xl font-bold text-center mb-8">Success Stories</h2>
@@ -36,8 +39,9 @@ const SuccessStoryCarousel = () => {
             {stories.map((story) => (
               <SwiperSlide key={story._id}>
                 <div
-                  className={`p-6 rounded-lg text-center h-96 flex flex-col justify-between ${isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
-                    }`}
+                  className={`p-6 rounded-lg text-center h-96 flex flex-col justify-between ${
+                    isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
+                  }`}
                 >
                   <img
                     src={story.coupleImage || "https://via.placeholder.com/150"}
@@ -48,8 +52,9 @@ const SuccessStoryCarousel = () => {
                     {`Biodata IDs: ${story.selfBiodataId} & ${story.partnerBiodataId}`}
                   </h3>
                   <p
-                    className={`mt-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"
-                      }`}
+                    className={`mt-4 ${
+                      isDarkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
                   >
                     {story.successStory}
                   </p>
@@ -59,8 +64,9 @@ const SuccessStoryCarousel = () => {
           </Swiper>
         ) : (
           <p
-            className={`text-center ${isDarkMode ? "text-gray-400" : "text-gray-600"
-              }`}
+            className={`text-center block ${
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            }`}
           >
             No success stories yet.
           </p>

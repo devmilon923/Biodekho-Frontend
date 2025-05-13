@@ -98,13 +98,13 @@ const PaysDashboard = () => {
           </div>
 
           {/* Name and Premium Status */}
-          <div className="text-left w-full z-10 mt-8">
+          <div className="text-left w-full z-10 mt-14">
             <h1
               className={`${
                 isDarkMode ? "text-white" : "text-gray-500"
               } text-3xl font-bold`}
             >
-              {userData.displayName || userData.name || "No Name"}
+              {userData?.displayName || userData?.name || "No Name"}
             </h1>
             <p
               className={`text-sm font-bold mt-2 ${
@@ -130,7 +130,7 @@ const PaysDashboard = () => {
           </Avatar>
           <div>
             <h1 className="text-xl font-semibold">
-              {userData.displayName || "Guest User"}
+              {userData?.displayName || userData?.name || "Guest User"}
             </h1>
             <p className={`${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
               {userData.email}

@@ -8,12 +8,12 @@ const FAQs = () => {
 
   const questionsAnswers = [
     {
-      question: "What is bdmarriage.com?",
+      question: "What is biodekho?",
       answer:
-        "bdmarriage.com is a trusted matrimony platform that connects people looking for meaningful relationships and marriage in Bangladesh.",
+        "biodekho is a trusted matrimony platform that connects people looking for meaningful relationships and marriage in Bangladesh.",
     },
     {
-      question: "Is bdmarriage.com free to use?",
+      question: "Is biodekho free to use?",
       answer:
         "Yes, you can register for free. We also offer premium services for advanced matchmaking options.",
     },
@@ -30,7 +30,7 @@ const FAQs = () => {
     {
       question: "How do I contact customer support?",
       answer:
-        "You can reach out to our support team via email at support@bdmarriage.com or use the contact form on our website.",
+        "You can reach out to our support team via email at support@biodekho or use the contact form on our website.",
     },
   ];
 
@@ -40,8 +40,9 @@ const FAQs = () => {
 
   return (
     <section
-      className={`py-16 ${isDarkMode ? " text-gray-200" : "bg-white text-gray-800"
-        }`}
+      className={`py-16 ${
+        isDarkMode ? " text-gray-200" : "bg-white text-gray-800"
+      }`}
     >
       <div className="container max-w-7xl mx-auto px-8">
         <h2 className="text-4xl font-bold text-center mb-8">
@@ -51,26 +52,33 @@ const FAQs = () => {
           {questionsAnswers.map((item, index) => (
             <div
               key={index}
-              className={`shadow-md rounded-lg p-4 border ${isDarkMode ? "bg-BgDarkSecondary border-gray-700" : "bg-white"
-                }`}
+              className={`shadow-sm rounded-lg p-4 border ${
+                isDarkMode ? "bg-BgDarkSecondary border-gray-700" : "bg-white"
+              }`}
             >
               <div
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => toggleAnswer(index)}
               >
-                <h3 className="text-lg font-semibold">
-                  {item.question}
-                </h3>
+                <h3 className="text-lg font-semibold">{item.question}</h3>
                 <span>
                   {activeIndex === index ? (
-                    <ChevronDown className={isDarkMode ? "text-gray-400" : "text-gray-600"} />
+                    <ChevronDown
+                      className={isDarkMode ? "text-gray-400" : "text-gray-600"}
+                    />
                   ) : (
-                    <ChevronRight className={isDarkMode ? "text-gray-400" : "text-gray-600"} />
+                    <ChevronRight
+                      className={isDarkMode ? "text-gray-400" : "text-gray-600"}
+                    />
                   )}
                 </span>
               </div>
               {activeIndex === index && (
-                <p className={`mt-4 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                <p
+                  className={`mt-4 ${
+                    isDarkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
                   {item.answer}
                 </p>
               )}

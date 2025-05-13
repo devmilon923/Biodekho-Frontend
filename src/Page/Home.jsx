@@ -14,17 +14,19 @@ const Home = () => {
 
   return (
     <div
-      className={`${isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white text-gray-900"
-        }`}
+      className={`${
+        isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white text-gray-900"
+      }`}
     >
       <MatrimonyBanner />
       <BdMarriage />
-      <BiodataShowcase />
       <WhyChooseUs />
+      <BiodataShowcase />
       <SuccessStoryCarousel />
       <div
-        className={`py-16 px-6 md:px-0 ${isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
-          }`}
+        className={`py-16 px-6 md:px-0 ${
+          isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
+        }`}
       >
         <CallToActionBanner />
       </div>

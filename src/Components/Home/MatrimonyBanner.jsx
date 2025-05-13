@@ -1,4 +1,4 @@
-import Banner from "@/assets/Home/banner.jpg";
+import Banner from "@/assets/Home/banner.png";
 import ThemeContext from "@/context/ThemeContext";
 import useAuth from "@/hooks/useAuth";
 import { useContext } from "react";
@@ -19,32 +19,37 @@ const MatrimonyBanner = () => {
 
   return (
     <section
-      className={`px-2 py-32 ${isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white"
-        } md:px-0`}
+      className={`px-2 py-32 ${
+        isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white"
+      } md:px-0`}
     >
       <div className="container items-center max-w-7xl px-8 mx-auto xl:px-5">
         <div className="flex flex-wrap items-center sm:-mx-3">
           <div className="w-full md:w-1/2 md:px-3">
             <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
               <h1
-                className={`text-4xl font-extrabold tracking-tight sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl ${isDarkMode ? "text-gray-100" : "text-gray-900"
-                  }`}
+                className={`text-3xl font-extrabold tracking-tight sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl ${
+                  isDarkMode ? "text-gray-100" : "text-gray-900"
+                }`}
               >
                 <span className="block xl:inline">Find Your Perfect Match</span>
                 <span
-                  className={`block xl:inline ${isDarkMode ? "text-BgDarkAccent" : "text-BgPrimary"
-                    }`}
+                  className={`block xl:inline ${
+                    isDarkMode ? "text-BgDarkAccent" : "text-BgPrimary"
+                  }`}
                 >
+                  {" "}
                   With Our Matrimony Platform
                 </span>
               </h1>
               <p
-                className={`mx-auto text-base sm:max-w-md lg:text-xl md:max-w-3xl ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                  }`}
+                className={`mx-auto text-base sm:max-w-md lg:text-xl md:max-w-3xl ${
+                  isDarkMode ? "text-gray-400" : "text-gray-500"
+                }`}
               >
-                Discover a seamless and personalized way to connect with
-                potential life partners. Join our community today and take the
-                first step toward your dream journey.
+                Embark on a personalized journey to connect with potential life
+                partners. Join our community today and take the first step
+                toward finding your perfect match.
               </p>
               <div className="relative flex flex-col sm:flex-row sm:space-x-4">
                 <button
@@ -69,10 +74,11 @@ const MatrimonyBanner = () => {
                 </button>
                 <NavLink
                   to="/about-us"
-                  className={`flex items-center px-6 py-3 rounded-md ${isDarkMode
+                  className={`flex items-center px-6 py-3 rounded-md ${
+                    isDarkMode
                       ? "text-gray-300 bg-BgDarkSecondary hover:bg-gray-700"
                       : "text-gray-500 bg-gray-100 hover:bg-gray-200 hover:text-gray-600"
-                    }`}
+                  }`}
                 >
                   Learn More
                 </NavLink>

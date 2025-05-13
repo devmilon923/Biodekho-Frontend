@@ -19,8 +19,9 @@ const BiodataCard = ({ biodata }) => {
 
   return (
     <div
-      className={`border rounded-lg p-4 shadow-md w-full mx-auto flex flex-col justify-between ${isDarkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"
-        }`}
+      className={`border rounded-lg p-4 shadow-md w-full mx-auto flex flex-col justify-between ${
+        isDarkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"
+      }`}
     >
       {/* Profile Section */}
       <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-4">
@@ -34,8 +35,9 @@ const BiodataCard = ({ biodata }) => {
         <div className="text-center sm:text-left mt-4 sm:mt-0">
           <h2 className="text-lg font-bold">{name}</h2>
           <p
-            className={`text-sm ${isDarkMode ? "text-gray-400" : "text-gray-500"
-              }`}
+            className={`text-sm ${
+              isDarkMode ? "text-gray-400" : "text-gray-500"
+            }`}
           >
             Biodata No: {biodataId}
           </p>
@@ -68,8 +70,11 @@ const BiodataCard = ({ biodata }) => {
       <div className="mt-4">
         <Link to={`/biodata-details/${biodataId}`}>
           <button
-            className={`px-4 py-2 w-full rounded hover:bg-BgPrimary transition ${isDarkMode ? "text-gray-200 bg-red-500" : "text-white bg-red-400"
-              }`}
+            className={`px-4 py-2 w-full rounded hover:bg-BgPrimary transition ${
+              isDarkMode
+                ? "text-gray-200 bg-BgPrimary"
+                : "text-white bg-BgPrimary"
+            }`}
           >
             View Profile
           </button>
