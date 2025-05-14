@@ -1,5 +1,6 @@
 import ThemeContext from "@/context/ThemeContext";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -7,6 +8,7 @@ const BiodataShowcase = () => {
   const [randomBiodatas, setRandomBiodatas] = useState([]);
   const [loading, setLoading] = useState(true);
   const axiosPublic = useAxiosPublic();
+  const axiosPrivate = useAxiosSecure();
   const { isDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -14,7 +16,7 @@ const BiodataShowcase = () => {
       setLoading(true);
 
       const response = await axiosPublic.get("/biodatas", {
-        params: { page: 1, limit: 20 },
+        params: { page: 1, limit: 10 },
       });
 
       const biodatas = response.data.data || [];

@@ -9,6 +9,7 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -23,6 +24,7 @@ const GotMarried = () => {
   });
 
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const image_hosting_key = import.meta.env.VITE_IMAGE_API_KEY;
   const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
@@ -41,7 +43,7 @@ const GotMarried = () => {
         const formDataImage = new FormData();
         formDataImage.append("image", file);
 
-        const res = await axiosSecure.post(image_hosting_api, formDataImage, {
+        const res = await axiosPublic.post(image_hosting_api, formDataImage, {
           headers: { "Content-Type": "multipart/form-data" },
         });
 

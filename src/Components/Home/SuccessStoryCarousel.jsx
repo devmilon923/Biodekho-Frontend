@@ -26,7 +26,7 @@ const SuccessStoryCarousel = () => {
           : "bg-gray-50 text-gray-800"
       }`}
     >
-      <div className="container max-w-7xl mx-auto px-8 flex flex-wrap">
+      <div className="container max-w-7xl mx-auto px-8 ">
         <h2 className="text-4xl font-bold text-center mb-8">Success Stories</h2>
         {stories.length > 0 ? (
           <Swiper
@@ -39,14 +39,14 @@ const SuccessStoryCarousel = () => {
             {stories.map((story) => (
               <SwiperSlide key={story._id}>
                 <div
-                  className={`p-6 rounded-lg text-center h-96 flex flex-col justify-between ${
+                  className={`p-6 rounded-lg text-center h-fit flex flex-col justify-between ${
                     isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
                   }`}
                 >
                   <img
                     src={story.coupleImage || "https://via.placeholder.com/150"}
                     alt="Couple"
-                    className="w-24 h-24 rounded-full mx-auto mb-4"
+                    className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
                   />
                   <h3 className="text-xl font-semibold">
                     {`Biodata IDs: ${story.selfBiodataId} & ${story.partnerBiodataId}`}

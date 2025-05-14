@@ -28,16 +28,19 @@ const AdminHome = () => {
 
   return (
     <div
-      className={`container mx-auto p-6 ${isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white text-gray-900"
-        }`}
+      className={`container mx-auto p-6 ${
+        isDarkMode ? "bg-BgDarkPrimary text-gray-200" : "bg-white text-gray-900"
+      }`}
     >
       {/* Home Header */}
       <div
-        className={`h-[300px] md:h-[350px] bg-cover bg-center rounded-xl shadow-md overflow-hidden ${isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
-          }`}
+        className={`h-[300px] md:h-[350px] bg-cover bg-center rounded-xl shadow-md overflow-hidden ${
+          isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
+        }`}
         style={{
-          backgroundImage: `linear-gradient(rgb(241, 73, 76), rgba(241, 73, 76, 0.7)), url(${user?.photoURL || "https://i.imgur.com/8Km9tLL.png"
-            })`,
+          backgroundImage: `linear-gradient(rgb(241, 73, 76), rgba(241, 73, 76, 0.7)), url(${
+            user?.photoURL || "https://i.imgur.com/8Km9tLL.png"
+          })`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -83,14 +86,16 @@ const AdminHome = () => {
         ].map((stat, idx) => (
           <div
             key={idx}
-            className={`rounded-xl shadow-md overflow-hidden flex flex-col h-40 justify-between ${isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
-              }`}
+            className={`rounded-xl shadow-md overflow-hidden flex flex-col h-40 justify-between ${
+              isDarkMode ? "bg-BgDarkSecondary" : "bg-white"
+            }`}
           >
             <div className="p-6 flex items-start justify-between">
               <div>
                 <p
-                  className={`text-sm font-medium ${isDarkMode ? "text-red-400" : "text-red-600"
-                    }`}
+                  className={`text-sm font-medium ${
+                    isDarkMode ? "text-red-400" : "text-red-600"
+                  }`}
                 >
                   {stat.title}
                 </p>
@@ -98,22 +103,23 @@ const AdminHome = () => {
                   <CountUp end={stat.count} duration={2} />+
                 </h3>
                 <p
-                  className={`text-xs mt-1 ${isDarkMode ? "text-gray-400" : "text-gray-500"
-                    }`}
+                  className={`text-xs mt-1 ${
+                    isDarkMode ? "text-gray-400" : "text-gray-500"
+                  }`}
                 >
                   {stat.increase}
                 </p>
               </div>
               <div
-                className={`p-3 rounded-lg ${isDarkMode ? "bg-red-500" : "bg-red-100"
-                  }`}
+                className={`p-3 rounded-lg ${
+                  isDarkMode ? "bg-red-500" : "bg-red-100"
+                }`}
               >
-                {<stat.icon className="text-2xl text-red-200" />}
+                {<stat.icon className="text-2xl text-BgPrimary" />}
               </div>
             </div>
             <div
-              className={`h-1 ${isDarkMode ? "bg-red-500" : "bg-red-200"
-                }`}
+              className={`h-1 ${isDarkMode ? "bg-red-500" : "bg-red-200"}`}
             ></div>
           </div>
         ))}
@@ -128,7 +134,6 @@ const AdminHome = () => {
           <RecentOrders />
         </div>
       </div>
-
     </div>
   );
 };

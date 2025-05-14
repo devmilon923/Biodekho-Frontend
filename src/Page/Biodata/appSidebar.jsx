@@ -6,7 +6,7 @@ import SidebarFilters from "./SidebarFilters";
 const AppSidebar = () => {
   const [filters, setFilters] = useState({
     type: "",
-    ageRange: [18, 35],
+    ageRange: [18, 100],
     heightRange: [0, 10],
     permanentDivision: "",
     biodataId: "",

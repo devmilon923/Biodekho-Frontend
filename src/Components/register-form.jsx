@@ -80,17 +80,18 @@ export function RegisterForm({ className, ...props }) {
         };
 
         axiosPublic.post("/users", userInfo).then((res) => {
-
-          if (res.data.insertedId || res.data.message === "user already exists") {
-            navigate("/");
+          if (
+            res.data.insertedId ||
+            res.data.message === "user already exists"
+          ) {
+            return navigate("/");
           } else {
-            toast.error("User not saved to DB");
+            return toast.error("User not saved to DB");
           }
         });
       })
       .catch((error) => toast.error(`Google Login Failed: ${error.message}`));
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,7 +100,8 @@ export function RegisterForm({ className, ...props }) {
     const email = form.get("email");
     const password = form.get("password");
 
-    const photoUrl = "https://i.ibb.co/rQr6L83/default-avatar-icon-of-social-media-user-vector.jpg";
+    const photoUrl =
+      "https://i.ibb.co/rQr6L83/default-avatar-icon-of-social-media-user-vector.jpg";
     const createdAt = new Date().toISOString();
 
     if (name.length < 5) {
@@ -155,7 +157,6 @@ export function RegisterForm({ className, ...props }) {
       });
   };
 
-
   return (
     <form
       className={cn("flex flex-col gap-6", className)}
@@ -201,8 +202,9 @@ export function RegisterForm({ className, ...props }) {
               <HoverCardTrigger>
                 <IoMdInformationCircleOutline
                   size={20}
-                  className={`cursor-pointer  ${STRENGTH_CONFIG.colors[calculateStrength.score]
-                    } transition-all `}
+                  className={`cursor-pointer  ${
+                    STRENGTH_CONFIG.colors[calculateStrength.score]
+                  } transition-all `}
                 />
               </HoverCardTrigger>
               <HoverCardContent className="bg-background">
@@ -218,8 +220,9 @@ export function RegisterForm({ className, ...props }) {
                         />
                       )}
                       <span
-                        className={`text-xs ${req.met ? "text-emerald-600" : "text-muted-foreground"
-                          }`}
+                        className={`text-xs ${
+                          req.met ? "text-emerald-600" : "text-muted-foreground"
+                        }`}
                       >
                         {req.text}
                         <span className="sr-only">
@@ -256,7 +259,7 @@ export function RegisterForm({ className, ...props }) {
             </button>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button  type="submit" className="w-full">
             Register
           </Button>
           <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">

@@ -17,11 +17,12 @@ const ManageUsers = () => {
   } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const response = await axiosSecure.get("/users");
+      const response = await axiosSecure.get("/users-all");
       return response.data;
     },
   });
-
+  if (isLoading) return <>Loading...</>;
+  console.log(users);
   const handleMakeAdmin = async (userId) => {
     try {
       await axiosSecure.patch(`/users/admin/${userId}`);
@@ -84,16 +85,16 @@ const ManageUsers = () => {
                 <td className="px-4 py-2 text-center">
                   <Button
                     className="mr-2"
-                    onClick={() => handleMakeAdmin(user._id)}
+                    onClick={() => handleMakeAdmin(user?._id)}
                     variant="primary"
-                    disabled={user.role === "admin"}
+                    disabled={user?.role === "admin"}
                   >
                     Make Admin
                   </Button>
                   <Button
                     onClick={() => handleMakePremium(user._id)}
                     variant="secondary"
-                    disabled={user.premium === true}
+                    disabled={user?.premium === true}
                   >
                     Make Premium
                   </Button>

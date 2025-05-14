@@ -45,136 +45,149 @@ const PaysDashboard = () => {
     profileViews: 340,
     messagesExchanged: 158,
   };
-
+  console.log(userData);
   return (
     <div
-      className={`p-6 ${
-        isDarkMode ? "bg-[#1e1e2f] text-white" : "bg-white text-gray-900"
+      className={`p-6 min-h-screen ${
+        isDarkMode ? "bg-[#1e1e2f]" : "bg-gray-50"
       }`}
     >
-      {/* Background Cover */}
-      <div
-        className="relative h-[350px] bg-cover bg-center rounded-2xl overflow-hidden shadow-xl"
-        style={{
-          backgroundImage: `url(${
-            userData.photoUrl ||
-            user.photoURL ||
-            "https://img.freepik.com/premium-vector/flat-businessman-character_33040-132.jpg"
-          })`,
-        }}
-      >
-        <div
-          className={`absolute inset-0 ${
-            isDarkMode ? "bg-black opacity-60" : "bg-black opacity-40"
-          }`}
-        ></div>
-      </div>
-
-      {/* Profile Info */}
-      <div className="px-6 -mt-12 mb-8">
-        <div className="flex flex-col md:flex-row items-center gap-6">
-          {/* Profile Image */}
-          <div className="relative flex-shrink-0">
+      {/* Main Content Container */}
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Hero Section */}
+        <div className="relative rounded-2xl overflow-hidden shadow-xl">
+          <div
+            className="h-64 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${
+                userData.photoUrl ||
+                user.photoURL ||
+                "https://img.freepik.com/premium-vector/flat-businessman-character_33040-132.jpg"
+              })`,
+            }}
+          >
             <div
-              className={`w-32 h-32 rounded-full border-4 ${
-                userData.premium ? "border-yellow-500" : "border-white"
-              } bg-gray-200 overflow-hidden shadow-lg`}
-            >
-              <img
-                src={
-                  userData.photoUrl ||
-                  user.photoURL ||
-                  "https://img.freepik.com/premium-vector/flat-businessman-character_33040-132.jpg"
-                }
-                alt="Profile"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src =
-                    "https://img.freepik.com/premium-vector/flat-businessman-character_33040-132.jpg";
-                }}
-              />
+              className={`absolute inset-0 ${
+                isDarkMode ? "bg-black/60" : "bg-black/40"
+              }`}
+            />
+          </div>
+
+          {/* Profile Header */}
+          <div className="absolute bottom-0 left-0 right-0 px-6 pb-6">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="relative -mt-16">
+                <div
+                  className={`w-32 h-32 rounded-full border-4 ${
+                    userData.premium ? "border-yellow-500" : "border-white"
+                  } bg-gray-200 shadow-lg`}
+                >
+                  <img
+                    src={userData?.photoUrl || user.photoURL}
+                    alt="Profile"
+                    className="w-full h-full object-cover rounded-full"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://img.freepik.com/premium-vector/flat-businessman-character_33040-132.jpg";
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex-1 text-center md:text-left">
+                <h1
+                  className={`text-3xl font-bold ${
+                    isDarkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  {userData?.displayName || userData?.name || "Guest User"}
+                </h1>
+                <p
+                  className={`mt-2 ${
+                    userData.premium
+                      ? "text-yellow-500"
+                      : isDarkMode
+                      ? "text-gray-400"
+                      : "text-gray-600"
+                  }`}
+                >
+                  {userData.premium ? "Premium Member" : "Free Member"}
+                </p>
+              </div>
             </div>
           </div>
-
-          {/* Name and Premium Status */}
-          <div className="text-left w-full z-10 mt-14">
-            <h1
-              className={`${
-                isDarkMode ? "text-white" : "text-gray-500"
-              } text-3xl font-bold`}
-            >
-              {userData?.displayName || userData?.name || "No Name"}
-            </h1>
-            <p
-              className={`text-sm font-bold mt-2 ${
-                userData.premium
-                  ? "text-yellow-500"
-                  : isDarkMode
-                  ? "text-gray-400"
-                  : "text-gray-500"
-              }`}
-            >
-              {userData.premium ? "Premium Member" : "Free Member"}
-            </p>
-          </div>
         </div>
+
+        {/* Dashboard Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Profile Card */}
+          <Card className={`${isDarkMode ? "bg-[#2a2a40]" : ""} md:col-span-1`}>
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-4">
+                <Avatar className="h-14 w-14">
+                  <AvatarImage src={userData.photoURL} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h2
+                    className={`text-lg font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {userData?.displayName || userData?.name || "Guest User"}
+                  </h2>
+                  <p
+                    className={`text-sm ${
+                      isDarkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
+                  >
+                    {userData?.email}
+                  </p>
+                  <p
+                    className={`text-sm ${
+                      isDarkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
+                  ></p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Stats Card */}
+          <Card className={`${isDarkMode ? "bg-[#2a2a40]" : ""} md:col-span-2`}>
+            <CardHeader>
+              <CardTitle className={isDarkMode ? "text-white" : ""}>
+                Activity & Impact
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {Object.entries(fakeImpactData).map(([key, value]) => (
+                  <div key={key} className="text-center p-4">
+                    <p
+                      className={`text-2xl font-bold ${
+                        isDarkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
+                      {value}
+                    </p>
+                    <p
+                      className={`text-sm capitalize ${
+                        isDarkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
+                      {key.replace(/([A-Z])/g, " $1").trim()}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Additional Grid Sections Can Be Added Here */}
       </div>
-
-      {/* Avatar Card */}
-      <Card className={`mb-6 ${isDarkMode ? "bg-[#2a2a40] text-white" : ""}`}>
-        <CardContent className="flex items-center space-x-4 p-4">
-          <Avatar className="h-10 w-10 rounded-lg">
-            <AvatarImage src={userData.photoURL} alt={userData.displayName} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-          </Avatar>
-          <div>
-            <h1 className="text-xl font-semibold">
-              {userData?.displayName || userData?.name || "Guest User"}
-            </h1>
-            <p className={`${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              {userData.email}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Useful Stats Section */}
-      <Card className={`${isDarkMode ? "bg-[#2a2a40] text-white" : ""}`}>
-        <CardHeader>
-          <CardTitle>Activity & Impact</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div className="text-center">
-            <p className="text-2xl font-bold">
-              {fakeImpactData.connectionsMade}
-            </p>
-            <p className={`${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Connections Made
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-2xl font-bold">{fakeImpactData.matchesFound}</p>
-            <p className={`${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Matches Found
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-2xl font-bold">{fakeImpactData.profileViews}</p>
-            <p className={`${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Profile Views
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-2xl font-bold">
-              {fakeImpactData.messagesExchanged}
-            </p>
-            <p className={`${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
-              Messages Exchanged
-            </p>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 };
