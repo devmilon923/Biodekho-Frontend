@@ -98,7 +98,7 @@ const PaysDashboard = () => {
               <div className="flex-1 text-center md:text-left">
                 <h1
                   className={`text-3xl font-bold ${
-                    isDarkMode ? "text-white" : "text-gray-900"
+                    isDarkMode ? "text-white" : "text-white"
                   }`}
                 >
                   {userData?.displayName || userData?.name || "Guest User"}
@@ -109,7 +109,7 @@ const PaysDashboard = () => {
                       ? "text-yellow-500"
                       : isDarkMode
                       ? "text-gray-400"
-                      : "text-gray-600"
+                      : "text-gray-400"
                   }`}
                 >
                   {userData.premium ? "Premium Member" : "Free Member"}

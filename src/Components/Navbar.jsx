@@ -146,7 +146,11 @@ const Navbar = () => {
         </div>
 
         <Link to="/" className="flex items-center">
-          <img src={logoImg} alt="Biodekho Logo" className="h-12 " />
+          {/* <img src={logoImg} alt="Biodekho Logo" className="h-12 " />
+           */}
+          <h1 className="font-extrabold text-3xl">
+            <span className="text-BgPrimary">Bio</span>Dekho
+          </h1>
         </Link>
 
         {/* Desktop Menu */}
@@ -192,7 +196,7 @@ const Navbar = () => {
                   <img
                     src={user?.photoURL || defaultProfilePicture}
                     alt="User Profile"
-                    className="w-10 h-10 rounded-full"
+                    className="w-10 h-10 rounded-full object-cover"
                   />
                 </button>
               </DropdownMenuTrigger>

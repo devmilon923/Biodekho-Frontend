@@ -23,7 +23,7 @@ const BiodataShowcase = () => {
 
       if (biodatas.length > 0) {
         const shuffled = [...biodatas].sort(() => 0.5 - Math.random());
-        setRandomBiodatas(shuffled.slice(0, 3));
+        setRandomBiodatas(shuffled.slice(0, 4));
       }
 
       setLoading(false);
@@ -70,7 +70,7 @@ const BiodataShowcase = () => {
                   biodata.profileImageLink || "https://via.placeholder.com/150"
                 }
                 alt={biodata.name || "User Image"}
-                className=" rounded-md mb-4"
+                className=" rounded-md mb-4 h-52 object-cover"
               />
               <h3 className="text-xl font-semibold">
                 {biodata.name || "Unknown"}

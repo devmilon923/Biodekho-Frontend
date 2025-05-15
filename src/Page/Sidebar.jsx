@@ -76,7 +76,7 @@ const Sidebar = () => {
               <img
                 src={data.user.avatar}
                 alt="User Avatar"
-                className="w-12 h-12 rounded-full border-2 border-yellow-400 p-0.5"
+                className="w-12 h-12 rounded-full border-2 border-yellow-400 p-0.5 object-cover"
               />
               <div>
                 <p className="font-semibold text-sm">{data.user.name}</p>
