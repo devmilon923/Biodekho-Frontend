@@ -53,14 +53,14 @@ Ensure you have the following installed:
 
 ## Live Application
 
-[Visit Biodekho Here](#)
+[Visit Biodekho Here](https://biodekho.netlify.app/)
 
 ---
 
 ## Repository Links
 
-- **Frontend Repository**: [GitHub Link](#)
-- **Backend Repository**: [GitHub Link](#)
+- **Frontend Repository**: [GitHub Link](https://github.com/devmilon923/Biodekho-Frontend)
+- **Backend Repository**: [GitHub Link](https://github.com/devmilon923/Biodekho-Backend)
 
 ---
 
